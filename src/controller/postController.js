@@ -1,12 +1,11 @@
-import { Post } from "../models/postModel.js";
+import { saveMessages } from "../services/postServices.js";
 export const getHomePage = async(req, res) => {
     return res.status(200).json({"message": "Mee here at homepage"});
 }
 export const saveMessage = async(req, res) => {
     try {
         const {message} = req.body;
-        const newMessage = new Post({message});
-        const result = await newMessage.save();
+        const result = await saveMessages(message);
         if(!result){
            return res.status(400).json({"result": "FAILED","data": "","error":"Error aa gya to save the message"});
         }
